@@ -4,7 +4,6 @@ const fruits = require("../fruits.json")
 
 class Fruit {
     constructor(fruit) {
-        // this only works because we are getting the data from a json file
         this.genus = fruit.genus
         this.name = fruit.name
         this.id = fruit.id
@@ -18,7 +17,6 @@ class Fruit {
     }
 
     static getFruit(name) {
-        // using find not filter - find is good for returning one object, filter returns array
         const fruit = fruits.find(fruit => fruit.name.toLowerCase() == name)
 
         if (fruit) {
@@ -26,9 +24,6 @@ class Fruit {
         } else {
             throw "fruit not found"
         }
-
-
-        return fruit
     }
 
     static create(data) {
@@ -42,16 +37,31 @@ class Fruit {
             fruits.push(newFruit)
             return new Fruit(newFruit)
         }
-        update(data {
-            const updateFruit = fruits.find(fruit => fruit.name.toLowerCase() === this.name.toLowerCase())
+    }
 
-            if (updateFruit) {
-                updateFruit.name = data.name
-                updateFruit.family = data.familyreturn new Fruit(updateFruit)
-            } else {
-                throw "throw this fruit doesnt exist"
-            }
-        })
+    updateFruit(data) {
+        const updateFruit = fruits.find(fruit => fruit.name.toLowerCase() === this.name.toLowerCase())
+
+        if (updateFruit) {
+            updateFruit.name = data.name
+            updateFruit.family = data.family
+            return new Fruit(updateFruit)
+        } else {
+            throw "fruit doesnt exist"
+        }
+    }
+    delete() {
+        const deletedFruit = fruits.find(fruit => fruit.name.toLowerCase() === this.name.toLowerCase())
+        if (deletedFruit) {
+            const index = fruits.indexOf(deletedFruit)
+            //splice removes 1 item from the index passed in
+            const removedFruit = fruits.splice(index, 1)
+            console.log(removedFruit)
+            return new Fruit(removedFruit[0])
+        } else {
+            throw "this fruit doesnt exist"
+        }
+
     }
 }
 

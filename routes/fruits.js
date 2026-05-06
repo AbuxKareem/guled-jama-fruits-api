@@ -3,7 +3,7 @@
 
 const express = require("express")
 const router = express.Router()
-const fruits = require("../controller/fruits")
+const fruits = require("../controllers/fruits")
 
 // maps endpoint '/' to fruits.index controller function
 // doesnt need the brackets because its middleware - more interested in the object than the function
@@ -16,6 +16,8 @@ router.post('/', fruits.createFruit)
 
 //
 router.patch('/:name',fruits.updateFruit)
+
+router.delete('/delete/:name', fruits.deleteFruits)
 
 
 module.exports = router
